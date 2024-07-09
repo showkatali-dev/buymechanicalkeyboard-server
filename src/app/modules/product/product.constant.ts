@@ -1,1 +1,1 @@
-export const productSearhableFields = ['name', 'description', 'brand'];
+export const productSearhableFields = ['name', 'description', 'brandName'];

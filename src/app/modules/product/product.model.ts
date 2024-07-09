@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { IProduct } from './product.interface';
+import Brand from '../brand/brand.model';
 
 const productSchema = new Schema<IProduct>(
   {
@@ -14,6 +15,9 @@ const productSchema = new Schema<IProduct>(
     brand: {
       type: Schema.Types.ObjectId,
       ref: 'Brand',
+    },
+    brandName: {
+      type: String,
     },
     description: {
       type: String,
@@ -42,6 +46,12 @@ const productSchema = new Schema<IProduct>(
   },
   { timestamps: true, versionKey: false },
 );
+
+productSchema.pre('save', async function (next) {
+  const brand = await Brand.findById(this.brand);
+  this.brandName = brand?.title;
+  next();
+});
 
 productSchema.pre('find', function (next) {
   this.where({ isDeleted: { $ne: true } });

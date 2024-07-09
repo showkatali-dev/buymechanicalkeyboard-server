@@ -53,6 +53,14 @@ const updateProductByIdIntoDB = async (
   id: string,
   payload: Partial<IProduct>,
 ) => {
+  const brand = await Brand.findById(payload.brand);
+
+  if (!brand) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Brand not found');
+  }
+
+  payload.brand = brand._id;
+  payload.brandName = brand.title;
   const result = await Product.findByIdAndUpdate(id, payload, { new: true });
   return result;
 };
