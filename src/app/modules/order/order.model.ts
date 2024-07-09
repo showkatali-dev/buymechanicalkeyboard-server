@@ -5,10 +5,10 @@ const orderSchema = new Schema<IOrder>(
   {
     name: { type: String, required: true },
     email: { type: String, required: true },
-    productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+    product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
     phone_number: { type: String, required: true },
     delivery_address: { type: String, required: true },
-    payment_type: { type: String, required: true },
+    payment_type: { type: String, enum: ['COD', 'Online'], required: true },
     transaction_id: { type: String },
     price: { type: Number, required: true },
     quantity: { type: Number, required: true },

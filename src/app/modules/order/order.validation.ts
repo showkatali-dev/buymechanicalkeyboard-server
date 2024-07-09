@@ -4,10 +4,10 @@ export const createOrderValidationSchema = z.object({
   body: z.object({
     name: z.string(),
     email: z.string(),
-    productId: z.string(),
+    product: z.string(),
     phone_number: z.string(),
     delivery_address: z.string(),
-    payment_type: z.string(),
+    payment_type: z.enum(['COD', 'Online']),
     transaction_id: z.string().optional(), // for online payment
     price: z.number(),
     quantity: z.number(),
